@@ -1,11 +1,6 @@
-type CircleButtonProps = {
-  icon?: React.ElementType;
-  variant: "blue" | "black";
-  className?: string;
-  iconClassName?: string;
-};
+import { ICircleButtonPropTypes } from "./types/circle-button.types";
 
-export const Sosmed: React.FC<CircleButtonProps> = ({
+export const Sosmed: React.FC<ICircleButtonPropTypes> = ({
   icon: Icon,
   variant,
   className = "",

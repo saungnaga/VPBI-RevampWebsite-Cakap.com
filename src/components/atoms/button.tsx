@@ -1,16 +1,9 @@
 // button
 
 import React from "react";
+import { IButtonPropTypes } from "./types/button,types";
 
-interface ButtonProps {
-  label: string;
-  onClick: ()=> void;
-  disabled?: boolean;
-  variant?: "white" | "blue" | "green";
-  size?: "small" | "large";
-}
-
-export const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<IButtonPropTypes> = ({
   label,
   onClick,
   disabled = false,
@@ -42,4 +35,4 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button
+export default Button;
