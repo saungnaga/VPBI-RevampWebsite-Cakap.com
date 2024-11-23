@@ -1,7 +1,7 @@
 // button
 
 import React from "react";
-import { IButtonPropTypes } from "./types/button,types";
+import { IButtonPropTypes } from "./types/button.types";
 
 export const Button: React.FC<IButtonPropTypes> = ({
   label,
