@@ -2,13 +2,9 @@
 
 import React from 'react';
 import { useDropdownStore } from '@/store/dropdownstore';
+import { IDropdownPropTypes } from './types/dropdown.types';
 
-export interface DropdownProps {
-	label: string;
-	options: string[];
-	onChange?: (value: string) => void;
-}
-const Dropdown: React.FC<DropdownProps> = ({ label, options, onChange }) => {
+const Dropdown: React.FC<IDropdownPropTypes> = ({ label, options, onChange }) => {
 	const { isOpen, selectedOption, toggleDropdown, selectOption } =
 		useDropdownStore();
 
