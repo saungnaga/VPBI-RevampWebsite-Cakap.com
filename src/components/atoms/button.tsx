@@ -2,13 +2,14 @@
 
 import React from "react";
 import { IButtonPropTypes } from "./types/button.types";
+import Link from "next/link";
 
 export const Button: React.FC<IButtonPropTypes> = ({
-  label,
-  onClick,
+  children,
   disabled = false,
   variant = "white",
   size = "small",
+  href,
 }) => {
   const baseClasses =
     "inline-flex item-center justify-center rounded-xl focus:outline-none transition duration-300 hover:scale-95 hover:opacity-80";
@@ -28,9 +29,23 @@ export const Button: React.FC<IButtonPropTypes> = ({
     disabled ? "opacity-50 cursor-not-allowed" : ""
   }`;
 
+  if (href) {
+    return (
+    <Link 
+      href={disabled ? "#" : href}
+      passHref
+      onClick={(e) => disabled && e.preventDefault()}
+    >
+      <a className={classes} aria-disabled={disabled ? "true" : "false"}>
+        {children}
+      </a>
+    </Link>
+    );
+  }
+
   return (
-    <button className={classes} onClick={onClick} disabled={disabled}>
-      {label}
+    <button className={classes} disabled={disabled}>
+      {children}
     </button>
   );
 };

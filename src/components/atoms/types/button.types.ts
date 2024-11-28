@@ -1,7 +1,7 @@
 export interface IButtonPropTypes {
-    label: string;
-    onClick: () => void;
+    children: React.ReactNode;
     disabled?: boolean;
     variant?: "white" | "blue" | "green";
     size?: "small" | "large";
+    href?: string;
 }
