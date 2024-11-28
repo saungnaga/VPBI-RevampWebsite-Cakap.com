@@ -1,19 +1,3 @@
-// accordion
-
-/**
-  
-  required data structure!
-
-  [
-    {
-      id: "1",
-      title: "Section 1",
-      content: "Content for Section 1",
-    }
-  ];
-
- */
-
 "use client";
 import React, { useState } from "react";
 import { IAccordionPropTypes } from "./types/accordion.types";
@@ -60,10 +44,13 @@ export const Accordion: React.FC<IAccordionPropTypes> = ({
           <div
             id={`accordion-content-${id}`}
             className={`overflow-hidden duration-500 ${
-              open.includes(id) ? "max-h-96" : "max-h-0"
+              open.includes(id) ? "max-h-screen" : "max-h-0"
             }`}
           >
-            <div className="p-4 text-gray-600 text-sm">{content}</div>
+            <div
+              className="p-4 text-gray-600 text-sm"
+              dangerouslySetInnerHTML={{ __html: content }}
+            ></div>
           </div>
         </div>
       ))}
