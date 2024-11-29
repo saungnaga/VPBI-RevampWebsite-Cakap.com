@@ -1,22 +1,34 @@
 import { getFaqs } from "@/services/faq-api";
 import { create } from "zustand";
+import { QnASection, QuestionsState } from "./types/useFaqStore.types";
 
-interface IFaqType {
-    faqs: []
-    fetchFaqs: () => Promise<void>
-}
 
-export const useFaqStore = create<IFaqType>()(
+export const useFaqStore = create<QuestionsState>(
     (set) => ({
-        faqs: [],
+        general_faqs: [],
+        home_faqs: [],
+        prakerja_faqs: [],
         fetchFaqs: async () => {
             try {
                 const faqs = await getFaqs();
-                set({ faqs: faqs });
+
+                const general_faqs: QnASection[] = faqs?.data?.general || [];
+                const home_faqs: QnASection[] = faqs?.data?.home || [];
+                const prakerja_faqs: QnASection[] = faqs?.data?.prakerja || [];
+
+                const general_questions = general_faqs.flatMap(item => item.questions);
+                const home_questions = home_faqs
+                const prakerja_questions = prakerja_faqs.flatMap(item => item.questions);
+
+                set({
+                    general_faqs: general_questions,
+                    home_faqs: home_questions,
+                    prakerja_faqs: prakerja_questions
+                });
+
             } catch (error) {
                 console.error("Error fetching faqs:", error);
                 throw error;
             }
         }
-    })
-)
+    }))
