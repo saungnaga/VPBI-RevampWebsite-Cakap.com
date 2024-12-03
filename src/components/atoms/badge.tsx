@@ -7,9 +7,9 @@
   import { useRouter } from "next/navigation";
 
   export const Badge: React.FC<BadgePropTypes> = ({
-    label = "BadgePlaceholder \u2197",
-    link = "", 
-    bgcolor ="green"
+    children,
+    link, 
+    bgcolor
   }) => {
     
     const router = useRouter();
@@ -33,7 +33,7 @@
 
     return (
       <button onClick={handleLink} className={style}>
-        <span>{label}</span>  
+        {children}  
       </button>
     );
   };

@@ -1,5 +1,5 @@
 export interface BadgePropTypes {
-    label: string;
+    children: React.ReactNode;
     link: string;
     bgcolor?: "white"|"blue"|"green";
 }
