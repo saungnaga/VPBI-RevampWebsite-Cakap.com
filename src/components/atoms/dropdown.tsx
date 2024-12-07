@@ -1,20 +1,55 @@
 // dropdown
+'use client';
 
-import React from 'react';
-import { useDropdownStore } from '@/store/dropdownstore';
+import React, { useEffect, useRef, useState } from 'react';
 import { IDropdownPropTypes } from './types/dropdown.types';
 
-const Dropdown: React.FC<IDropdownPropTypes> = ({ label, options, onChange }) => {
-	const { isOpen, selectedOption, toggleDropdown, selectOption } =
-		useDropdownStore();
+const Dropdown: React.FC<IDropdownPropTypes> = ({
+	label,
+	options,
+	defaultValue,
+	onChange,
+}) => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const [selectedOption, setSelectedOption] = useState<string | null>(
+		defaultValue | null
+	);
+
+	const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+	const toggleDropdown = () => {
+		setIsOpen((prev) => !prev);
+	};
 
 	const handleSelect = (option: string) => {
-		selectOption(option);
+		setSelectedOption(option);
+		setIsOpen(false);
 		if (onChange) onChange(option);
 	};
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			console.log('Clicked element:', event.target);
+			if (
+				dropdownRef.current &&
+				!dropdownRef.current.contains(event.target as Node)
+			)
+				toggleDropdown();
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
+
 	return (
 		<>
-			<div className='relative inline-block text-left w-64'>
+			<div
+				className='relative inline-block text-left w-64'
+				ref={dropdownRef}
+			>
 				<label className='text-md text-black mb-1'>{label}</label>
 				<div>
 					<button
