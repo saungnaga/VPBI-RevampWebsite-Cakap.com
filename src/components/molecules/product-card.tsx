@@ -7,7 +7,7 @@
     //   temporary proptypes
     
     export const ProductCard = (
-        { onClick, isDiscount}: ProductCardProps, ) => {
+        { onClick, isDiscount}: ProductCardProps ) => {
     return (
         <div  className="max-w-64 h-full bg-black mx-1 text-black rounded-3xl"
           onClick={onClick}>
@@ -31,11 +31,7 @@
                 </div>
           </div>
           <div className="">
-            {isDiscount ? (
-            <div className="mx-2 mb-6 text-2xl font-semibold">
-                    Rp.500.000,- 
-            </div>) : (
-            <div className="mx-2 text-md text-[#FF6464] font-semibold flex flex-row justify-between ">
+            {isDiscount ? (<div className="mx-2 text-md text-[#FF6464] font-semibold flex flex-row justify-between ">
                 <div>
                     Rp.200.000,-
                 </div>
@@ -46,10 +42,16 @@
                     Rp.500.000,-    
                 </div>
             </div>
-                )}
+             ) : (
+            <div className="mx-2 mb-6 text-2xl font-semibold">
+                    Rp.500.000,- 
+            </div>)
+                }
+            {isDiscount && (
             <div className="mx-2 my-2 py-1 border-[1px] border-black rounded-2xl bg-gray-300 w-1/4 text-center text-xs font-bold">
-                Diskon
+              Diskon
             </div>
+          )}
           </div>
         </div>
     </div>
