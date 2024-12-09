@@ -12,7 +12,7 @@ export const getProducts = async ({
     return response.data.data;
 };
 
-export const getHighlightProduct = async () => {
+export const getProductHighlight = async () => {
     const response = await apiInstance.get('/selfpaced/course/highlight');
     return response.data;
 };
