@@ -1,16 +1,19 @@
     import React from "react";
-
-    type ProductCardProps = {
-        onClick: () => void;
-        isDiscount: boolean;
-      };      
-    //   temporary proptypes
+    import { ProductCardProps } from "./types/ProductCardProps.types";
     
-    export const ProductCard = (
-        { onClick, isDiscount}: ProductCardProps ) => {
+    export const ProductCard: React.FC<ProductCardProps> = ({
+        isDiscount,
+        courseName,
+        price,
+        discount,
+        promoText,
+        categoriesName,
+        reviews,
+        icon,
+    }) => {
     return (
         <div  className="max-w-64 h-full bg-black mx-1 text-black rounded-3xl"
-          onClick={onClick}>
+          onClick={}>
       <div className="overflow-hidden w-full h-[10rem] rounded-t-3xl">
         <img  src="https://media.istockphoto.com/id/453281365/id/foto/huruf-alfabet-api-e.jpg?s=612x612&w=is&k=20&c=ds2MDJFCVsFZQPnFshHjb4_jiIwsOe2NnzmPRtkibVQ=" 
               alt="productName"/>
@@ -21,7 +24,7 @@
                     tanggal
                 </div>
                 <div className="overflow-hidden max-h-14">
-                    ini titlenya feohwehpf9pw8efg9we8fg9we7fgwe9fg we79ftqwe97ftwe9pfgwse97fgwe9fwefwefwefwe fdasfsadas asdasdas  asd asd asd asd asda
+                    {courseName}
                 </div>
                 <div className="text-xs text-gray-500 font-thin">
                     category
