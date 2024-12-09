@@ -32,6 +32,6 @@ export const useProductStore = create<IProductType>()(
                 console.error("Error fetching products:", error);
                 throw error;
             }
-        }
+        },
     })
 )
