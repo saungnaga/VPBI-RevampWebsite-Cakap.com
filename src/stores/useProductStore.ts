@@ -1,9 +1,9 @@
-import { getProduct } from "@/services/product-api";
+import { getProductHighlight } from "@/services/product-api";
 import { product } from "./types/useProductStore.types";
 import { create } from "zustand";
 
 interface productType {
-    products: product[]
+    products: [] | any
     fetchProduct: () => Promise<void>
 }
 
@@ -12,11 +12,11 @@ export const useProductStore = create<productType>()(
       products: [],
       fetchProduct: async () => {
         try {
-          const response = await getProduct();
-          console.log("Fetched Products:", response);
-          const fetchedProducts = response.data?.course || []; 
+          const response = await getProductHighlight();
+          const fetchedProducts = response;
   
-          set({ products: Array.isArray(fetchedProducts) ? fetchedProducts : [] });
+        //   set({ products: Array.isArray(fetchedProducts) ? fetchedProducts : [] });
+        set({ products: fetchedProducts });
         } catch (error) {
           console.error("Error fetching product:", error);
           set({ products: [] }); 
