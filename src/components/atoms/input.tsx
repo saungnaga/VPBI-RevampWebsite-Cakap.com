@@ -12,8 +12,8 @@ export const Input: React.FC<InputPropTypes> = ({
         "bg-white rounded-full text-gray-700 outline-none";
 
     const sizes = {
-        small: "py-2 px-4 h-8 w-96 text-xs",
-        large: "py-3 px-4 h-10 w-1/5 text-l",
+        small: "py-2 px-4 h-8 text-xs",
+        large: "py-3 px-4 h-10 text-l",
     };
 
     const classes = `${baseClasses} ${sizes[size]} `;
