@@ -7,13 +7,13 @@ interface productType {
     fetchProduct: () => Promise<void>
 }
 
-export const useProductStore = create<productType>()(
+export const useProductHighlightStore = create<productType>()(
     (set) => ({
       products: [],
       fetchProduct: async () => {
         try {
           const response = await getProductHighlight();
-          const fetchedProducts = response;
+          const fetchedProducts = response.data;
   
         //   set({ products: Array.isArray(fetchedProducts) ? fetchedProducts : [] });
         set({ products: fetchedProducts });

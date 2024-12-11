@@ -1,15 +1,15 @@
 export interface ProductCardProps {
-   
     courseId: string;
     courseName: string;
     basicPrice: string;
-    discount: string;
-    price: Prices;
-    promoText: string;
-    nextAction: string;
+    discount?: string;
+    price?: Prices;
+    promoText?: string;
     categoriesName: string;
-    reviews: Reviews;
+    partner: Partner;
+    reviews?: Reviews;
     icon: Icon;
+    nextAction: deeplink;
 }
 
 interface Prices {
@@ -24,4 +24,12 @@ interface Reviews {
 
 interface Icon {
     thumbnail: string;
+}
+
+interface Partner {
+    partnerName: string;
+}
+
+interface deeplink {
+    deeplink: string;
 }
