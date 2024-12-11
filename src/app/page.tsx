@@ -1,5 +1,7 @@
 //Homepage
 "use client"
+
+import { Accordion } from "@/components/atoms/accordion";
 import Badge from "@/components/atoms/badge";
 import { CircleButton } from "@/components/atoms/circle-button";
 import { Input } from "@/components/atoms/input";
@@ -8,32 +10,88 @@ import { CardLanguage } from "@/components/molecules/card-language";
 import cardLanguage from "../data/cardLanguage";
 import PartnerList from "@/components/molecules/partnerHome-list";
 import React from "react";
+import { useEffect } from "react";
+import { useBannerStore } from "@/stores/useBannerStore";
+import Link from "next/link";
+import { ProductCardSkeleton } from "@/components/molecules/product-card-skeleton";
+import { useProductHighlightStore } from "@/stores/useProductHighlightStore";
 import JobList from "@/components/molecules/job-list";
 import CourseList from "@/components/molecules/prakerja-list";
 import { Carousel } from "@/components/molecules/carousel";
+import { chunkArray } from "@/helpers/chunkArrayHelper";
 
 export default function Home() {
+
+  const { banners, fetchBanners } = useBannerStore();
+  
+  useEffect(() => {
+  fetchBanners();
+  }, [fetchBanners]);
+
+  const { products, fetchProduct } = useProductHighlightStore();
+  
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+
+  const groupProduct = chunkArray(products, 3)
+
   return (
     <>
       <h1 className="hidden">
         Kursus Online Bersertifikat dan Kelas Keterampilan Kerja - Cakap
       </h1>
       {/* -----banner----- */}
-      <div className="lg:w-1/2 md:px-32 sm:px-20 p-12 flex flex-col gap-4">
-        <div className="text-4xl font-extrabold">
-          Raih <span className="text-[#00ADC6]">tujuan</span> dan{" "}
-          <span className="text-[#00ADC6]">sasaran Anda</span> di masa mendatang
-        </div>
-      </div>
+      <div className="px-20 py-4 bg-white text-black banner bg-white">
+                <div className="flex flex-row justify-between items-center">
+                    <div className="text-7xl font-bold tracking-wide">
+                        Raih <span className="text-lime-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">tujuan</span> dan 
+                        <p className="text-cyan-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">sasaran Anda</p> 
+                        <p>di masa mendatang</p>
+                    </div>
+                    <Carousel>
+                  {banners?.map((banners, index) => (
+                        <Link href={banners.redirectUrl}>
+                            <img
+                                key={index}
+                                src={banners.urlBanner} 
+                                alt={banners.altTag}
+                                className="object-fit w-screen h-[30vw] rounded-3xl "
+                            />
+                        </Link>
+                        ))}
+                </Carousel>
+                </div>
+            </div>
       {/* -------course preview------- */}
       <div className="lg:px-32 md:px-20 p-12 bg-[#E1EDF7]">
         <div className="text-center">
           <div className="text-xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
-            Jelajahi Dua Cara Belajar Terbaik
+            Jelajahi Cara Belajar Terbaik
           </div>
           <div className="mt-2 text-sm sm:text-base">
             Belajar langsung dari pakarnya dengan live webinar atau atur sendiri
             ritme belajar Anda dengan kursus mandiri.
+          </div>
+          <div>
+              <Carousel>
+              {groupProduct.map((group, index) => (
+                <div key={index} className="flex justify-center gap-4 p-24">
+                  {group.map((product) => (
+                    <ProductCardSkeleton courseId={product.courseId}
+                    courseName= {product.courseName}
+                    categoriesName= {product.categoriesName}
+                    partner={product.partner}
+                    icon={product.icon}
+                    basicPrice={product.basicPrice}
+                    price={product.price}
+                    discount={product.discount}
+                    promoText={product.promoText}
+                    nextAction={product.nextAction}/>
+                  ))}
+                </div>
+              ))}
+              </Carousel>
           </div>
         </div>
       </div>

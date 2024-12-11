@@ -1,6 +1,8 @@
 import React from "react";
 import { ProductCardProps } from "./types/ProductCardProps.types";
 import Link from "next/link";
+import { useProductHighlightStore } from "@/stores/useProductHighlightStore";
+import { useEffect } from "react";
 
 const formatPrice = (price: string | number) => {
     const priceString = typeof price === 'string' ? price : price.toString();
@@ -21,13 +23,20 @@ export const ProductCardSkeleton: React.FC<ProductCardProps> = ({
     icon,
     nextAction
 }) => {
+
+    const { products, fetchProduct } = useProductHighlightStore();
+  
+    useEffect(() => {
+      fetchProduct();
+    }, [fetchProduct]);
+
+
 return (
     <Link href={nextAction.deeplink}>
-    {/* image */}
     <div className="max-w-64 h-full bg-black mx-1 text-black rounded-3xl 
                     transition ease-in-out delay-150 hover:-translate-y-1 
                     hover:scale-110 hover:opacity-90 duration-300"
-        key={courseId}>
+         key={courseId}>
     <img  src={icon.thumbnail} 
           alt={courseName}
           className="object-cover overflow-hidden w-full h-[10rem] rounded-t-3xl"/>
