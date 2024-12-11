@@ -1,12 +1,16 @@
 //Homepage
-
-import { Accordion } from "@/components/atoms/accordion";
+"use client"
 import Badge from "@/components/atoms/badge";
-import { Sosmed } from "@/components/atoms/circle-button";
+import { CircleButton } from "@/components/atoms/circle-button";
+import { Input } from "@/components/atoms/input";
+import FaqHome from "@/components/molecules/faq-home";
 import { CardLanguage } from "@/components/molecules/card-language";
-import { Header } from "@/components/molecules/header";
 import cardLanguage from "../data/cardLanguage";
+import PartnerList from "@/components/molecules/partnerHome-list";
 import React from "react";
+import JobList from "@/components/molecules/job-list";
+import CourseList from "@/components/molecules/prakerja-list";
+import { Carousel } from "@/components/molecules/carousel";
 
 export default function Home() {
   return (
@@ -14,7 +18,6 @@ export default function Home() {
       <h1 className="hidden">
         Kursus Online Bersertifikat dan Kelas Keterampilan Kerja - Cakap
       </h1>
-      <Header />
       {/* -----banner----- */}
       <div className="lg:w-1/2 md:px-32 sm:px-20 p-12 flex flex-col gap-4">
         <div className="text-4xl font-extrabold">
@@ -59,6 +62,10 @@ export default function Home() {
           di <span className="text-[#00ADC6]">Cakap Club</span>
         </div>
         <div className="mt-6 text-left grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="relative border shadow-md p-6 rounded-2xl bg-white hover:shadow-lg sm:grid gap-2 text-2xl items-center hidden">
+            Pilih mentor native atau guru lokal profesional untuk pengalaman
+            belajar terbaik.
+          </div>
           <CardLanguage languages={cardLanguage} />
         </div>
       </div>
@@ -74,21 +81,50 @@ export default function Home() {
               Jelajahi berbagai lowongan pekerjaan yang sesuai dengan keahlian
               dan minat Anda.
             </div>
-            <Badge label="Lihat Semua ↗" link="" bgcolor="white" />
+            <Badge bgcolor="white">Lihat Semua ↗</Badge>
           </div>
         </div>
+        <JobList />
       </div>
       {/* --------Prakerja------- */}
-      <div className="lg:px-32 md:px-20 p-12 bg-[#00ADC6]">
+      <div className="lg:px-32 md:px-20 p-12 bg-[#00ADC6] flex flex-col items-center gap-5">
         <div className="text-2xl lg:text-4xl sm:text-3xl font-extrabold text-center text-white">
           Cakap X Prakerja
         </div>
+        <div className="flex gap-2 w-full lg:w-2/3">
+          <div className="border-2 border-black rounded-full bg-white p-[2px] flex items-center w-full justify-between">
+            <Input placeholder="Kode Belajar Prakerja" />
+            <CircleButton
+              variant="black"
+              className="bg-[#FFBB00] w-1/3 text-gray-950 text-sm hidden sm:flex"
+            >
+              Tukar Kode →
+            </CircleButton>
+            <CircleButton
+              variant="black"
+              className="bg-[#FFBB00] text-gray-950 text-sm sm:hidden w-8"
+            >
+              →
+            </CircleButton>
+          </div>
+          <CircleButton variant="black" className="text-xs ">
+            Cara Tukar Kode ?
+          </CircleButton>
+        </div>
+        <CourseList/>
+        <a className="pl-2 pr-1 rounded-full hover:scale-105 bg-white" href="/courses">Lihat Semua ↗</a> 
       </div>
       {/* --------Mitra-------- */}
-      <div className="lg:px-32 md:px-20 p-12 border-b-2 border-black shadow-md">
+      <div className="lg:px-32 md:px-20 p-12 border-b-2 border-black shadow-md flex flex-col gap-10 items-center">
         <div className="text-2xl lg:text-4xl sm:text-3xl font-extrabold text-center">
           Mitra Kursus Kami
         </div>
+        <div className="scroll-container">
+          <PartnerList />
+          <PartnerList />
+          <PartnerList />
+        </div>
+        <a className="border border-black pl-2 pr-1 rounded-full hover:scale-105" href="/partners">Lihat Semua ↗</a>        
       </div>
       {/* --------FAQ--------- */}
       <div className="lg:px-32 md:px-20 p-12 flex flex-col md:flex-row md:gap-10 gap-2 text-center md:text-left">
@@ -97,12 +133,12 @@ export default function Home() {
             <span className="text-yellow-500">FAQ</span>: Jawaban Cepat untuk
             Anda
           </div>
-          <div className="text-sm sm:text-base">
+          <div className="text-sm sm:text-xl lg:px-10 md:pb-32 text-gray-600">
             Cari tahu segala hal yang Anda butuhkan dengan mudah
           </div>
         </div>
         <div>
-          <Accordion />
+          <FaqHome />
         </div>
       </div>
     </>

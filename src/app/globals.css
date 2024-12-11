@@ -9,8 +9,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #000000;
   }
 }
 
@@ -24,4 +24,27 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%); 
+  }
+}
+
+.scroll-container {
+  display: flex;
+  gap: 685px;
+  overflow: hidden;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.scroll-content {
+  display: flex;
+  animation: scroll 5s linear infinite;
+  width: max-content
 }
