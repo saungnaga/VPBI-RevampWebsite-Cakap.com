@@ -2,16 +2,9 @@
 import { Input } from "@/components/atoms/input";
 import { Carousel } from "@/components/molecules/carousel";
 import PartnerCard from "@/components/molecules/partner-card";
+import { chunkArray } from "@/helpers/chunkArrayHelper";
 import { usePartnerStore } from "@/stores/usePartnerStore";
 import { useEffect, useState } from "react";
-
-const chunkArray = (data: any[], size: number) => {
-  const result = [];
-  for (let i = 0; i < data.length; i += size) {
-    result.push(data.slice(i, i + size));
-  }
-  return result;
-};
 
 const Page = () => {
   const [search, setSearch] = useState<string>("");

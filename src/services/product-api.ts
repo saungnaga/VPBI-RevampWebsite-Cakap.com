@@ -22,3 +22,30 @@ export const getCategories = async () => {
     const response = await apiInstance.get('/selfpaced/categories');
     return response.data.data;
 };
+
+export const getCourseDetail = async (courseId: string) => {
+	try {
+		const response = await apiInstance.get(
+			`/selfpaced/course/detail/${courseId}?platform=WEB`
+		);
+		return response.data.data;
+	} catch (error: any) {
+		throw new Error(
+			error.response?.data?.message || 'Failed to fetch course detail'
+		);
+	}
+};
+
+export const getCourseDetailReview = async (courseId: string) => {
+	try {
+		const response = await apiInstance.get(
+			`/selfpaced/rating/${courseId}/summary`
+		);
+		return response.data.data;
+	} catch (error: any) {
+		throw new Error(
+			error.response?.data?.message ||
+				'Failed to fetch course detail review'
+		);
+	}
+};
