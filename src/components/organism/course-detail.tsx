@@ -145,13 +145,13 @@ export default function CourseDetail({ courseData, courseRating }) {
               <div className="w-full lg:w-3/4 mb-4 lg:mb-0 grid gap-4">
                 <div className="border rounded-lg bg-white shadow-lg p-4">
                   <div className="grid gap-1">
-                    <p className="text-dark text-sm dark:text-white md:mt-0">
+                    <p className="text-dark text-sm md:mt-0">
                       {courseData.categoriesName}
                     </p>
-                    <h2 className="font-bold text-dark text-3xl dark:text-white md:mt-0">
+                    <h2 className="font-bold text-dark text-3xl md:mt-0">
                       {courseData.courseName}
                     </h2>
-                    <p className="flex justify-end text-dark text-sm dark:text-white md:mt-0">
+                    <p className="flex justify-end text-dark text-sm md:mt-0">
                       Rating : {""}
                       <span className="font-semibold">
                         {courseData.rating} / 5.0 | (
