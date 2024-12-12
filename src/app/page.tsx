@@ -20,6 +20,7 @@ import JobList from "@/components/molecules/job-list";
 import CourseList from "@/components/molecules/prakerja-list";
 import { Carousel } from "@/components/molecules/carousel";
 import { chunkArray } from "@/helpers/chunkArrayHelper";
+import { useState } from "react";
 
 export default function Home() {
 
@@ -42,8 +43,31 @@ export default function Home() {
     fetchProduct();
   }, [fetchProduct]);
 
-  const groupProduct = chunkArray(products, 3)
-  const groupBestSeller = chunkArray(best_sellers, 3)
+  const [screenSize, setScreenSize] = useState("large");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width < 400) {
+        setScreenSize("mobile");
+      } else if (width >= 640 && width < 1024) {
+        setScreenSize("tablet");
+      } else {
+        setScreenSize("large");
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize); // Cleanup
+  }, []);
+
+  const groupProduct =  screenSize === "mobile"? chunkArray(products, 1) :
+                        screenSize === "tablet" ? chunkArray(products, 2) : chunkArray(products, 3);
+  const groupBestSeller = screenSize === "mobile" ? chunkArray(best_sellers, 1) :
+                          screenSize === "tablet" ? chunkArray (best_sellers, 2) : chunkArray(best_sellers, 3);
 
   return (
     <>
@@ -115,7 +139,7 @@ export default function Home() {
         <div className="text-3xl font-extrabold">Tak Terbatas Kesempatan</div>
       </div>
       <div className="bg-[#D9D9D9] mx-4 sm:mx-20 xl:mx-96 my-4 rounded-3xl flex flex-col">
-        <div className="flex justify-end px-6 ">
+        <div className="flex justify-end px-6 sm: hover:animate-bounce">
           {products.slice(0, 4).map((product, index) => (
               <Link href="Kategori">
                 <div key={index} className="m-1 max-w-screen sm:m-2">
@@ -139,8 +163,7 @@ export default function Home() {
                 <div key={index} className="m-2">
                   <Badge bgcolor="white"><span className="p-2">{product.categoriesName} ↗</span></Badge>
                 </div>
-              </Link>
-              
+              </Link>    
           ))}
         </div>
         <div className="text-xl px-6 py-2 sm:text-3xl sm:w-2/4">

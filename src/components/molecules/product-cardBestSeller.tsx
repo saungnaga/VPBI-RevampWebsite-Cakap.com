@@ -43,7 +43,7 @@ return (
                 By <span className="text-black font-bold">{partner.partnerName}</span>
             </div>
             <div className="flex items-center space-x-2 ">
-                <span className="text-yellow-400">⭐ {reviews?.rating}</span>
+                <span className="text-yellow-400">⭐ {reviews?.rating || 0}</span>
                 <span className="text-gray-500 text-sm">&#40; {reviews?.total} &#41;</span>
             </div>
       </div>
