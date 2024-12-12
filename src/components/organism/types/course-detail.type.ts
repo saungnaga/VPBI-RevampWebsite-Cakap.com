@@ -1,4 +1,4 @@
 export type CourseDetailProps = {
-  courseData: any;
-  courseRating: any;
+	courseData: any;
+	courseRating: any;
 };
