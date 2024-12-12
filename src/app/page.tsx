@@ -141,14 +141,13 @@ export default function Home() {
         <div className="text-xl px-6 py-2 sm:text-3xl sm:w-2/4">
           Eksplorasilah kategori kami untuk memperluas keterampilan Anda
         </div>
-        <div className="text-xs px-6 sm:flex flex-col text-sm sm:w-2/4">
+        <div className="px-6 sm:flex flex-col text-sm sm:w-2/4">
             Punya Kode Belajar?
             <input
             className="py-2 my-2 w-3/4 rounded-2xl"
             id="1"
             name="Masukkan kode belajar Anda"
             value=""
-            onChange=""
             placeholder="Masukkan kode belajar Anda"
         />
         </div>
