@@ -1,8 +1,8 @@
 export interface IDropdownPropTypes {
-	firstOption: string;
-	options: { value: string; label: string }[];
+	firstOption: string | number;
+	options: { value: string | number; label: string | number }[];
 	onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-	default_value: string;
+	default_value: string | number;
 	disabled?: boolean;
 	className?: string;
 }

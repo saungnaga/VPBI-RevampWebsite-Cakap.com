@@ -11,7 +11,8 @@ interface IProductType {
         limit,
         page,
         order_by,
-        category_id
+        category_id,
+        search_query,
     }: IProductApiTypes) => Promise<void>
 
     fetchBestSellers: ({
@@ -32,18 +33,27 @@ export const useProductStore = create<IProductType>()(
             limit,
             page,
             order_by,
-            category_id
+            category_id,
+            search_query,
         }) => {
             try {
                 const products = await getProducts({
                     limit,
                     page,
                     order_by,
-                    category_id
+                    category_id,
                 });
 
+                const filteredProducts = search_query
+        ? products.course.filter((product: any) =>
+            product.courseName
+              .toLowerCase()
+              .includes(search_query.toLowerCase())
+          )
+        : products.course;
+
                 set({
-                    products: products.course,
+                    products: filteredProducts,
                 });
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -82,6 +92,6 @@ export const useProductStore = create<IProductType>()(
                 console.error("Error fetching categories:", error);
                 throw error;
             }
-        }
+        }    
     })
 )

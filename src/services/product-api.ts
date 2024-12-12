@@ -2,28 +2,29 @@ import { apiInstance } from "@/config/axiosInstance";
 import { IProductApiTypes } from "./types/product-api.types";
 
 export const getProducts = async ({
-    limit = 12,
-    page = 1,
-    order_by = '',
-    category_id = ''
+	limit = 12,
+	page = 1,
+	order_by = '',
+	category_id = '',
+	search_query = '',
 }: IProductApiTypes) => {
-    const response = await apiInstance.get(
-        `/selfpaced/course/list?limit=${limit}&page=${page}&categoriesId=${category_id}&courseOrderBy=${order_by}`
-    );
-    return response.data.data;
+	const response = await apiInstance.get(
+		`/selfpaced/course/list?limit=${limit}&page=${page}&categoriesId=${category_id}&courseOrderBy=${order_by}&search=${search_query}`
+	);
+	return response.data.data;
 };
 
 export const getProductHighlight = async () => {
-    const response = await apiInstance.get('/selfpaced/course/highlight');
-    return response.data;
+	const response = await apiInstance.get('/selfpaced/course/highlight');
+	return response.data;
 };
 
 export const getCategories = async () => {
-    const response = await apiInstance.get('/selfpaced/categories');
-    return response.data.data;
+	const response = await apiInstance.get('/selfpaced/categories');
+	return response.data.data;
 };
 
-export const getCourseDetail = async (courseId: string) => {
+export const getCourseDetail = async ({ courseId }: { courseId: string }) => {
 	try {
 		const response = await apiInstance.get(
 			`/selfpaced/course/detail/${courseId}?platform=WEB`
@@ -36,7 +37,7 @@ export const getCourseDetail = async (courseId: string) => {
 	}
 };
 
-export const getCourseDetailReview = async (courseId: string) => {
+export const getCourseDetailReview = async ({ courseId }: { courseId: string }) => {
 	try {
 		const response = await apiInstance.get(
 			`/selfpaced/rating/${courseId}/summary`
@@ -45,7 +46,7 @@ export const getCourseDetailReview = async (courseId: string) => {
 	} catch (error: any) {
 		throw new Error(
 			error.response?.data?.message ||
-				'Failed to fetch course detail review'
+			'Failed to fetch course detail review'
 		);
 	}
 };

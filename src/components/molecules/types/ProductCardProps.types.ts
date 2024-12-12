@@ -5,7 +5,7 @@ export interface ProductCardProps {
     discount?: string;
     price?: Prices;
     promoText?: string;
-    categoriesName: string;
+    categoriesName?: string;
     partner: Partner;
     reviews?: Reviews;
     icon: Icon;

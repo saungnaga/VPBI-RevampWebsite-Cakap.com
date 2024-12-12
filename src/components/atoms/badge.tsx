@@ -2,11 +2,10 @@
 
   import React from "react";
   import { BadgePropTypes } from "./types/badge.types";
-  import { useRouter } from "next/navigation";
 
   export const Badge: React.FC<BadgePropTypes> = ({
     children,
-    onClick, 
+    onClick,
     bgcolor
   }) => {
 
@@ -17,12 +16,14 @@
       blue:  "bg-sky-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-lime-500 duration-30 text-white"
     };
 
-    const style = `flex gap-2 px-2 py-1 text-base font-semibold rounded-3xl ${bgcolors[bgcolor]}`;
+    const style = `flex gap-2 text-xs font-semibold rounded-3xl ${bgcolors[bgcolor]}`;
 
     return (
-      <button onClick={onClick} className={style}>
-        {children}  
-      </button>
+      <div>
+        <button className={style}>
+          {children}  
+        </button>
+      </div>
     );
   };
 

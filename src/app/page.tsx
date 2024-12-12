@@ -1,4 +1,3 @@
-//Homepage
 "use client"
 import Badge from "@/components/atoms/badge";
 import { CircleButton } from "@/components/atoms/circle-button";
@@ -8,32 +7,124 @@ import { CardLanguage } from "@/components/molecules/card-language";
 import cardLanguage from "../data/cardLanguage";
 import PartnerList from "@/components/molecules/partnerHome-list";
 import React from "react";
+import { useEffect } from "react";
+import { useBannerStore } from "@/stores/useBannerStore";
+import Link from "next/link";
+import { ProductCardSkeleton } from "@/components/molecules/product-card-skeleton";
+import { ProductCardBestSeller } from "@/components/molecules/product-cardBestSeller";
+import { useProductHighlightStore } from "@/stores/useProductHighlightStore";
+import { useProductStore } from "@/stores/useProductStore";
 import JobList from "@/components/molecules/job-list";
 import CourseList from "@/components/molecules/prakerja-list";
 import { Carousel } from "@/components/molecules/carousel";
+import { chunkArray } from "@/helpers/chunkArrayHelper";
+import { useState } from "react";
 
 export default function Home() {
+
+  const { banners, fetchBanners } = useBannerStore();
+  
+  useEffect(() => {
+  fetchBanners();
+  }, [fetchBanners]);
+
+  const { best_sellers, fetchBestSellers } = useProductStore();
+  
+  useEffect(() => {
+    fetchBestSellers({limit:20, page:1});
+  }, [fetchBestSellers]);
+
+
+  const { products, fetchProduct } = useProductHighlightStore();
+  
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+
+  const [screenSize, setScreenSize] = useState("large");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width < 720) {
+        setScreenSize("mobile");
+      } else if (width >= 720 && width < 1024) {
+        setScreenSize("tablet");
+      } else {
+        setScreenSize("large");
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize); // Cleanup
+  }, []);
+
+  const groupProduct =  screenSize === "mobile"? chunkArray(products, 1) :
+                        screenSize === "tablet" ? chunkArray(products, 2) : chunkArray(products, 3);
+  const groupBestSeller = screenSize === "mobile" ? chunkArray(best_sellers, 1) :
+                          screenSize === "tablet" ? chunkArray (best_sellers, 2) : chunkArray(best_sellers, 3);
+
   return (
     <>
       <h1 className="hidden">
         Kursus Online Bersertifikat dan Kelas Keterampilan Kerja - Cakap
       </h1>
       {/* -----banner----- */}
-      <div className="lg:w-1/2 md:px-32 sm:px-20 p-12 flex flex-col gap-4">
-        <div className="text-4xl font-extrabold">
-          Raih <span className="text-[#00ADC6]">tujuan</span> dan{" "}
-          <span className="text-[#00ADC6]">sasaran Anda</span> di masa mendatang
-        </div>
-      </div>
+      <div className="px-0.5 py-0.5 sm:px-20 sm:py-4 bg-white text-black banner bg-white">
+                <div className="flex flex-row justify-between items-center tracking-tighter">
+                    <div className="text-xs lg:text-6xl sm:text-2xl font-semibold hidden sm:block">
+                        Raih <span className="text-lime-500">TUJUAN</span>
+                        <p> dan <span className="text-cyan-500">SASARAN</span></p> 
+                        <p>Anda di masa mendatang</p>
+                        <Badge bgcolor="blue"><span className="p-2 hover:animate-pulse">Pelajari Lebih Lengkap</span></Badge>
+                    </div>
+                    
+                    <Carousel>
+                  {banners?.map((banners, index) => (
+                        <Link href={banners.redirectUrl}>
+                            <img
+                                key={index}
+                                src={banners.urlBanner} 
+                                alt={banners.altTag}
+                                className="object-fit w-screen h-100vw sm:h-[30vw] rounded-3xl "
+                            />
+                        </Link>
+                        ))}
+                </Carousel>
+                </div>
+            </div>
       {/* -------course preview------- */}
       <div className="lg:px-32 md:px-20 p-12 bg-[#E1EDF7]">
-        <div className="text-center">
-          <div className="text-xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
-            Jelajahi Dua Cara Belajar Terbaik
+        <div>
+          <div className="text-xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold text-center">
+            Jelajahi Cara Belajar Terbaik
           </div>
-          <div className="mt-2 text-sm sm:text-base">
+          <div className="mt-2 text-sm sm:text-base text-center">
             Belajar langsung dari pakarnya dengan live webinar atau atur sendiri
             ritme belajar Anda dengan kursus mandiri.
+          </div>
+          <div>
+              <Carousel>
+              {groupProduct.map((group, index) => (
+                <div key={index} className="flex gap-4 justify-center pt-4 pb-10 ">
+                  {group.map((product) => (
+                    <ProductCardSkeleton courseId={product.courseId}
+                    courseName= {product.courseName}
+                    categoriesName= {product.categoriesName}
+                    partner={product.partner}
+                    icon={product.icon}
+                    basicPrice={product.basicPrice}
+                    price={product.price}
+                    discount={product.discount}
+                    promoText={product.promoText}
+                    nextAction={product.nextAction}/>
+                  ))}
+                </div>
+              ))}
+              </Carousel>
           </div>
         </div>
       </div>
@@ -44,8 +135,50 @@ export default function Home() {
         </div>
         <div className="text-3xl font-extrabold">Tak Terbatas Kesempatan</div>
       </div>
+      <div className="bg-[#D9D9D9] mx-4 sm:mx-20 xl:mx-96 my-4 rounded-3xl flex flex-col">
+        <div className="flex justify-end px-6">
+          {products.slice(0, 4).map((product, index) => (
+              <Link href="Kategori">
+                <div key={index} className="m-1 max-w-screen sm:m-2">
+                  <Badge bgcolor="white"><span className="p-1 sm:p-2">{product.categoriesName}</span></Badge>
+                </div>
+              </Link>
+          ))}
+        </div>
+        <div className="sm:flex justify-end hidden px-6">
+          {products.slice(5, 10).map((product, index) => (
+              <Link href="Kategori">
+                <div key={index} className="m-2">
+                  <Badge bgcolor="white"><span className="p-2">{product.categoriesName} ↗</span></Badge>
+                </div>
+              </Link>
+          ))}
+        </div>
+        <div className="sm:flex justify-end hidden px-6">
+          {products.slice(11, 13).map((product, index) => (
+              <Link href="Kategori">
+                <div key={index} className="m-2">
+                  <Badge bgcolor="white"><span className="p-2">{product.categoriesName} ↗</span></Badge>
+                </div>
+              </Link>    
+          ))}
+        </div>
+        <div className="text-xl px-6 py-2 sm:text-3xl sm:w-2/4">
+          Eksplorasilah kategori kami untuk memperluas keterampilan Anda
+        </div>
+        <div className="px-6 sm:flex flex-col text-sm sm:w-2/4">
+            Punya Kode Belajar?
+            <input
+            className="py-2 my-2 w-3/4 rounded-2xl"
+            id="1"
+            name="Masukkan kode belajar Anda"
+            value=""
+            placeholder="Masukkan kode belajar Anda"
+        />
+        </div>
+      </div>
       {/* -------Kursus Terlaris------ */}
-      <div className="lg:px-32 md:px-20 p-12 bg-[#E1EDF7]">
+      <div className="lg:px-32 md:px-20 sm:px-20 p-12 bg-[#E1EDF7]">
         <div className="text-center">
           <div className="text-xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
             Jangan Lewatkan, Ini yang Paling Dicari!
@@ -54,6 +187,24 @@ export default function Home() {
             Daftar sekarang untuk bergabung dengan kursus terbaik kami.
           </div>
         </div>
+        <Carousel>
+              {groupBestSeller.map((group, index) => (
+                <div key={index} className="flex gap-4 justify-center p-24 sm:py-4">
+                  {group.map((best_sellers) => (
+                    <ProductCardBestSeller courseId={best_sellers.courseId}
+                    courseName= {best_sellers.courseName}
+                    partner={best_sellers.partner}
+                    icon={best_sellers.icon}
+                    reviews={best_sellers.reviews}
+                    basicPrice={best_sellers.basicPrice}
+                    price={best_sellers.price}
+                    discount={best_sellers.discount}
+                    promoText={best_sellers.promoText}
+                    nextAction={best_sellers.nextAction}/>
+                  ))}
+                </div>
+              ))}
+              </Carousel>
       </div>
       {/* -------Bahasa Asing-------- */}
       <div className="lg:px-32 md:px-20 p-12">
@@ -120,6 +271,8 @@ export default function Home() {
           Mitra Kursus Kami
         </div>
         <div className="scroll-container">
+          <PartnerList />
+          <PartnerList />
           <PartnerList />
           <PartnerList />
           <PartnerList />

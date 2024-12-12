@@ -7,6 +7,9 @@ export const Input: React.FC<InputPropTypes> = ({
     onChange,
     placeholder,
     size = "small",
+    onKeyDown,
+    className = "",
+    
 }) => {
     const baseClasses =
         "bg-white rounded-full text-gray-700 outline-none";
@@ -25,7 +28,7 @@ export const Input: React.FC<InputPropTypes> = ({
             name={id}
             value={value}
             onChange={onChange}
-            placeholder={placeholder}
+            placeholder={placeholder} onKeyDown={onKeyDown}
         />
     );
 };
