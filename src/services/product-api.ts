@@ -5,10 +5,11 @@ export const getProducts = async ({
 	limit = 12,
 	page = 1,
 	order_by = '',
-	category_id = ''
+	category_id = '',
+	search_query = '',
 }: IProductApiTypes) => {
 	const response = await apiInstance.get(
-		`/selfpaced/course/list?limit=${limit}&page=${page}&categoriesId=${category_id}&courseOrderBy=${order_by}`
+		`/selfpaced/course/list?limit=${limit}&page=${page}&categoriesId=${category_id}&courseOrderBy=${order_by}&search=${search_query}`
 	);
 	return response.data.data;
 };

@@ -1,6 +1,4 @@
-//Homepage
 "use client"
-import { Accordion } from "@/components/atoms/accordion";
 import Badge from "@/components/atoms/badge";
 import { CircleButton } from "@/components/atoms/circle-button";
 import { Input } from "@/components/atoms/input";
@@ -75,15 +73,12 @@ export default function Home() {
         Kursus Online Bersertifikat dan Kelas Keterampilan Kerja - Cakap
       </h1>
       {/* -----banner----- */}
-      <div className="px-0.5 py-0.5 sm:px-20 sm:py-4 bg-white text-black banner bg-white">
-                <div className="flex flex-row justify-between items-center tracking-tighter">
-                    <div className="text-xs lg:text-6xl sm:text-2xl font-semibold hidden sm:block">
-                        Raih <span className="text-lime-500">TUJUAN</span>
-                        <p> dan <span className="text-cyan-500">SASARAN</span></p> 
-                        <p>Anda di masa mendatang</p>
-                        <Link href="CourseList">
-                          <Badge bgcolor="blue"><span className="p-2 hover:animate-pulse">Pelajari lebih lanjut ↗</span></Badge>
-                        </Link>
+      <div className="px-20 py-14 bg-white text-black banner ">
+                <div className="flex flex-row justify-between items-center gap-5">
+                    <div className="text-5xl font-bold tracking-wide">
+                        Raih <span className="text-lime-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">tujuan</span> dan 
+                        <p className="text-cyan-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">sasaran Anda</p> 
+                        <p>di masa mendatang</p>
                     </div>
                     <Carousel>
                   {banners?.map((banners, index) => (
@@ -112,7 +107,7 @@ export default function Home() {
           <div>
               <Carousel>
               {groupProduct.map((group, index) => (
-                <div key={index} className="flex gap-4 justify-center p-24 ">
+                <div key={index} className="flex gap-4 justify-center pt-4 pb-10 ">
                   {group.map((product) => (
                     <ProductCardSkeleton courseId={product.courseId}
                     courseName= {product.courseName}
@@ -169,14 +164,13 @@ export default function Home() {
         <div className="text-xl px-6 py-2 sm:text-3xl sm:w-2/4">
           Eksplorasilah kategori kami untuk memperluas keterampilan Anda
         </div>
-        <div className="text-xs px-6 sm:flex flex-col text-sm sm:w-2/4">
+        <div className="px-6 sm:flex flex-col text-sm sm:w-2/4">
             Punya Kode Belajar?
             <input
             className="py-2 my-2 w-3/4 rounded-2xl"
             id="1"
             name="Masukkan kode belajar Anda"
             value=""
-            onChange=""
             placeholder="Masukkan kode belajar Anda"
         />
         </div>
@@ -275,6 +269,8 @@ export default function Home() {
           Mitra Kursus Kami
         </div>
         <div className="scroll-container">
+          <PartnerList />
+          <PartnerList />
           <PartnerList />
           <PartnerList />
           <PartnerList />

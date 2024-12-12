@@ -5,9 +5,13 @@ import CatalogCard from "@/components/molecules/catalog-card";
 import { chunkArray } from "@/helpers/chunkArrayHelper";
 import { useProductStore } from "@/stores/useProductStore";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
+  const searchParams = useSearchParams();
+  const query = searchParams?.get("query") || "";
+
   const {
     categories,
     products,
@@ -30,8 +34,11 @@ const Page = () => {
       category_id: selectedCategory,
       page,
       limit,
+      search_query: query,
+    }).then((data) => {
+      console.log("Fetched Products:", data);
     });
-  }, [page, selectedCategory, selectedSortingMethod, limit, fetchProducts]);
+  }, [query, page, selectedCategory, selectedSortingMethod, limit, fetchProducts]);
 
   useEffect(() => {
     fetchBestSellers({
@@ -71,44 +78,46 @@ const Page = () => {
           <h1 className="text-xl text-gray-400">Make your future brighter!</h1>
         </div>
 
-        <div className="hidden lg:flex flex-col">
-          <h1 className="text-lg my-4 font-semibold">Best Sellers</h1>
-          <Carousel>
-            {groupedBestSellers.map((group, index) => (
-              <div
-                key={index}
-                className="flex flex-col lg:flex-row justify-center gap-4"
-              >
-                {group?.map((product) => (
-                  <Link
-                    href={`/courses/${product.courseId}`}
-                    key={product.courseId}
-                  >
-                    <CatalogCard
-                      thumbnail={
-                        product.thumbnails?.find(
-                          (thumbnail) => thumbnail.type === "DESKTOP_LARGE"
-                        )?.url
-                      }
-                      title={product.courseName}
-                      normal_price={product.basicPrice}
-                      final_price={product.finalPrice}
-                      discount={
-                        product.discount &&
-                        (product.discountType === "PERCENTAGE"
-                          ? `${product.discount}%`
-                          : product.discountType === "FIX_AMOUNT"
-                          ? `Rp. ${product.discount}`
-                          : null)
-                      }
-                      partner_name={product.partner.partnerName}
-                    />
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </Carousel>
-        </div>
+        {!query && (
+          <div className="hidden lg:flex flex-col">
+            <h1 className="text-lg my-4 font-semibold">Best Sellers</h1>
+            <Carousel>
+              {groupedBestSellers.map((group, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col lg:flex-row justify-center gap-4"
+                >
+                  {group?.map((product) => (
+                    <Link
+                      href={`/courses/${product.courseId}`}
+                      key={product.courseId}
+                    >
+                      <CatalogCard
+                        thumbnail={
+                          product.thumbnails?.find(
+                            (thumbnail) => thumbnail.type === "DESKTOP_LARGE"
+                          )?.url
+                        }
+                        title={product.courseName}
+                        normal_price={product.basicPrice}
+                        final_price={product.finalPrice}
+                        discount={
+                          product.discount &&
+                          (product.discountType === "PERCENTAGE"
+                            ? `${product.discount}%`
+                            : product.discountType === "FIX_AMOUNT"
+                            ? `Rp. ${product.discount}`
+                            : null)
+                        }
+                        partner_name={product.partner.partnerName}
+                      />
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </Carousel>
+          </div>
+        )}
         <div className="flex flex-col lg:flex-row justify-between gap-3 px-4 py-7 ">
           <div className="lg:w-3/4">
             <Droprdown
