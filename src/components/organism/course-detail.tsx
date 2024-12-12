@@ -140,12 +140,12 @@ export default function CourseDetail({ courseData, courseRating }) {
 
   return (
     <>
-      <div className="container mx-auto py-6">
+      <div className="max-w-7xl mx-auto px-4 py-6">
         {courseData && (
           <div className="w-full">
             <div className="flex flex-wrap justify-center">
               <div className="w-full lg:w-3/4 mb-4 lg:mb-0 grid gap-4">
-                <div className="overflow-hidden border rounded-lg bg-white shadow-lg p-4">
+                <div className="border rounded-lg bg-white shadow-lg p-4">
                   <div className="grid gap-1">
                     <p className="text-dark text-sm dark:text-white md:mt-0">
                       {courseData.categoriesName}
@@ -246,10 +246,10 @@ export default function CourseDetail({ courseData, courseRating }) {
                     </div>
                   </div>
                 </div>
-                <div className="overflow-hidden border rounded-lg bg-white shadow-lg p-4"></div>
+                <div className="border rounded-lg bg-white shadow-lg p-4"></div>
               </div>
               <div className="w-full lg:w-1/4 ">
-                <aside className="w-full border rounded-lg bg-white shadow-lg p-4 sticky top-20 mr-0 lg:ml-6 mt-6 lg:mt-0 grid">
+                <aside className="w-full border rounded-lg bg-white shadow-lg p-4 sticky top-20 lg:ml-2 mt-6 lg:mt-0 grid">
                   <div className="flex border-b mb-4">
                     <button
                       className={`flex-1 py-2 text-center font-semibold ${
