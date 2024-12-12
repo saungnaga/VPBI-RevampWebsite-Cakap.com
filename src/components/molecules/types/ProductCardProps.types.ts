@@ -1,5 +1,4 @@
 export interface ProductCardProps {
-	key: number;
 	courseId: string;
 	courseName: string;
 	basicPrice: string;

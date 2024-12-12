@@ -10,7 +10,6 @@ const formatPrice = (price: string | number) => {
 };
 
 export const ProductCardBestSeller: React.FC<ProductCardProps> = ({
-	key,
 	courseName,
 	courseId,
 	price,

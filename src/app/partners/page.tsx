@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Input } from "@/components/atoms/input";
 import { Carousel } from "@/components/molecules/carousel";

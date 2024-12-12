@@ -10,7 +10,6 @@ const formatPrice = (price: string | number) => {
 };
 
 export const ProductCardSkeleton: React.FC<ProductCardProps> = ({
-	key,
 	courseName,
 	courseId,
 	price,
