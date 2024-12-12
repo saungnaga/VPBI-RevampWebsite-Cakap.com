@@ -19,6 +19,7 @@ import CourseList from "@/components/molecules/prakerja-list";
 import { Carousel } from "@/components/molecules/carousel";
 import { chunkArray } from "@/helpers/chunkArrayHelper";
 import { useState } from "react";
+import CourseDetail from "@/components/organism/course-detail";
 
 export default function Home() {
 
@@ -79,7 +80,9 @@ export default function Home() {
                         Raih <span className="text-lime-500">TUJUAN</span>
                         <p> dan <span className="text-cyan-500">SASARAN</span></p> 
                         <p>Anda di masa mendatang</p>
-                        <Badge bgcolor="blue"><span className="p-2 hover:animate-pulse">Pelajari Lebih Lengkap</span></Badge>
+                        <Link href="/courses">
+                          <Badge bgcolor="blue"><span className="p-2 hover:animate-pulse">Pelajari Lebih Lengkap</span></Badge>
+                        </Link>
                     </div>
                     
                     <Carousel>

@@ -52,7 +52,7 @@ return (
             <div>
                 {formatPrice(price.new)}
             </div>
-            <div className="bg-[#FF6464] text-white px-1 rounded-xl border-[1px] text-xs">
+            <div className="bg-[#FF6464] text-white px-2 rounded-xl border-[1px]">
                 {promoText}
             </div>
             <div className="text-black line-through text-xs sm:text-base">
