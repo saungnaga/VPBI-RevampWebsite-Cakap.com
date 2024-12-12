@@ -3,12 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const decodeHtmlEntities = (str) => {
-  const textarea = document.createElement("textarea");
-  textarea.innerHTML = str;
-  return textarea.value;
-};
-
 export default function CourseDetail({ courseData, courseRating }) {
   const [isAboutCourseExpanded, setIsAboutCourseExpanded] = useState(false);
   const [isCurriculumExpanded, setIsCurriculumExpanded] = useState(false);
@@ -49,8 +43,9 @@ export default function CourseDetail({ courseData, courseRating }) {
               <div
                 dangerouslySetInnerHTML={{
                   __html: isFacilitiesExpanded
-                    ? courseData.courseDescription.facilities
-                    : courseData.courseDescription.facilities.substring(
+                    ? courseData.courseDescription.facilities ||
+                      "Tidak tersedia"
+                    : (courseData.courseDescription.facilities || "").substring(
                         0,
                         200
                       ) +
@@ -59,7 +54,7 @@ export default function CourseDetail({ courseData, courseRating }) {
                         : ""),
                 }}
               />
-              {courseData.courseDescription.facilities.length > 200 && (
+              {courseData?.courseDescription?.facilities?.length > 200 && (
                 <button
                   onClick={toggleFacilitiesExpand}
                   className="text-blue-500 font-medium hover:underline mt-2"
@@ -75,14 +70,17 @@ export default function CourseDetail({ courseData, courseRating }) {
               <div
                 dangerouslySetInnerHTML={{
                   __html: isScheduleExpanded
-                    ? courseData.courseDescription.schedule
-                    : courseData.courseDescription.schedule.substring(0, 200) +
+                    ? courseData.courseDescription.schedule || "Tidak tersedia"
+                    : (courseData.courseDescription.schedule || "").substring(
+                        0,
+                        200
+                      ) +
                       (courseData.courseDescription.schedule.length > 200
                         ? "..."
                         : ""),
                 }}
               />
-              {courseData.courseDescription.schedule.length > 200 && (
+              {courseData?.courseDescription?.schedule?.length > 200 && (
                 <button
                   onClick={toggleScheduleExpand}
                   className="text-blue-500 font-medium hover:underline mt-2"
@@ -112,17 +110,17 @@ export default function CourseDetail({ courseData, courseRating }) {
             <div
               dangerouslySetInnerHTML={{
                 __html: isTermAndConditionExpanded
-                  ? courseData.courseDescription.termAndCondition
-                  : courseData.courseDescription.termAndCondition.substring(
-                      0,
-                      200
-                    ) +
+                  ? courseData.courseDescription.termAndCondition ||
+                    "Tidak tersedia"
+                  : (
+                      courseData.courseDescription.termAndCondition || ""
+                    ).substring(0, 200) +
                     (courseData.courseDescription.termAndCondition.length > 200
                       ? "..."
                       : ""),
               }}
             />
-            {courseData.courseDescription.termAndCondition.length > 200 && (
+            {courseData?.courseDescription?.termAndCondition?.length > 200 && (
               <button
                 onClick={toggleTermAndConditionExpand}
                 className="text-blue-500 font-medium hover:underline mt-2"
@@ -189,18 +187,18 @@ export default function CourseDetail({ courseData, courseRating }) {
                         <div
                           dangerouslySetInnerHTML={{
                             __html: isAboutCourseExpanded
-                              ? courseData.courseDescription.aboutCourse
-                              : courseData.courseDescription.aboutCourse.substring(
-                                  0,
-                                  200
-                                ) +
+                              ? courseData.courseDescription.aboutCourse ||
+                                "Tidak tersedia"
+                              : (
+                                  courseData.courseDescription.aboutCourse || ""
+                                ).substring(0, 200) +
                                 (courseData.courseDescription.aboutCourse
                                   .length > 200
                                   ? "..."
                                   : ""),
                           }}
                         />
-                        {courseData.courseDescription.aboutCourse.length >
+                        {courseData?.courseDescription?.aboutCourse?.length >
                           200 && (
                           <button
                             onClick={toggleAboutCourseExpand}
@@ -220,18 +218,21 @@ export default function CourseDetail({ courseData, courseRating }) {
                         <div
                           dangerouslySetInnerHTML={{
                             __html: isCurriculumExpanded
-                              ? courseData.courseDescription.curriculum
-                              : courseData.courseDescription.curriculum.substring(
-                                  0,
-                                  200
-                                ) +
-                                (courseData.courseDescription.curriculum
-                                  .length > 200
+                              ? courseData?.courseDescription?.curriculum ||
+                                "Tidak tersedia"
+                              : (
+                                  courseData?.courseDescription?.curriculum ||
+                                  ""
+                                ).substring(0, 200) +
+                                ((
+                                  courseData?.courseDescription?.curriculum ||
+                                  ""
+                                ).length > 200
                                   ? "..."
                                   : ""),
                           }}
                         />
-                        {courseData.courseDescription.curriculum.length >
+                        {courseData?.courseDescription?.curriculum?.length >
                           200 && (
                           <button
                             onClick={toggleCurriculumExpand}
