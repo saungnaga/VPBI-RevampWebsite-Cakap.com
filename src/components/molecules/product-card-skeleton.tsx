@@ -26,7 +26,7 @@ export const ProductCardSkeleton: React.FC<ProductCardProps> = ({
 
 return (
     <Link href={nextAction.deeplink}>
-    <div className=" lg:max-w-64 h-full bg-black mx-1 text-black rounded-3xl 
+    <div className="max-w-64 h-full bg-black mx-1 text-black rounded-3xl 
                     transition ease-in-out delay-150 hover:-translate-y-1 
                     hover:scale-110 hover:opacity-90 duration-300"
          key={courseId}>
@@ -35,7 +35,7 @@ return (
           className="object-cover overflow-hidden h-[10rem] rounded-t-3xl"/>
     {/* title/header */}
     <div className="bg-white rounded-b-3xl h-[12rem] flex flex-col justify-between pt-2">
-      <div className="text-xs lg:text-xl font-bold mx-2">
+      <div className="text-xl font-bold mx-2">
             <div className="overflow-hidden text-ellipsis whitespace-nowrap max-h-14">
                 {courseName}
             </div>

@@ -47,9 +47,9 @@ export default function Home() {
     const handleResize = () => {
       const width = window.innerWidth;
 
-      if (width < 400) {
+      if (width < 720) {
         setScreenSize("mobile");
-      } else if (width >= 640 && width < 1024) {
+      } else if (width >= 720 && width < 1024) {
         setScreenSize("tablet");
       } else {
         setScreenSize("large");
@@ -73,13 +73,15 @@ export default function Home() {
         Kursus Online Bersertifikat dan Kelas Keterampilan Kerja - Cakap
       </h1>
       {/* -----banner----- */}
-      <div className="px-20 py-14 bg-white text-black banner ">
-                <div className="flex flex-row justify-between items-center gap-5">
-                    <div className="text-5xl font-bold tracking-wide">
-                        Raih <span className="text-lime-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">tujuan</span> dan 
-                        <p className="text-cyan-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">sasaran Anda</p> 
-                        <p>di masa mendatang</p>
+      <div className="px-0.5 py-0.5 sm:px-20 sm:py-4 bg-white text-black banner bg-white">
+                <div className="flex flex-row justify-between items-center tracking-tighter">
+                    <div className="text-xs lg:text-6xl sm:text-2xl font-semibold hidden sm:block">
+                        Raih <span className="text-lime-500">TUJUAN</span>
+                        <p> dan <span className="text-cyan-500">SASARAN</span></p> 
+                        <p>Anda di masa mendatang</p>
+                        <Badge bgcolor="blue"><span className="p-2 hover:animate-pulse">Pelajari Lebih Lengkap</span></Badge>
                     </div>
+                    
                     <Carousel>
                   {banners?.map((banners, index) => (
                         <Link href={banners.redirectUrl}>
