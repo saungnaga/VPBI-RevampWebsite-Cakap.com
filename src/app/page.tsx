@@ -19,22 +19,17 @@ import CourseList from "@/components/molecules/prakerja-list";
 import { Carousel } from "@/components/molecules/carousel";
 import { chunkArray } from "@/helpers/chunkArrayHelper";
 import { useState } from "react";
-import CourseDetail from "@/components/organism/course-detail";
 
 export default function Home() {
-
   const { banners, fetchBanners } = useBannerStore();
-  
   useEffect(() => {
   fetchBanners();
   }, [fetchBanners]);
-
   const { best_sellers, fetchBestSellers } = useProductStore();
   
   useEffect(() => {
     fetchBestSellers({limit:20, page:1});
   }, [fetchBestSellers]);
-
 
   const { products, fetchProduct } = useProductHighlightStore();
   
@@ -132,7 +127,7 @@ export default function Home() {
         </div>
       </div>
       {/* -------Kategori-------- */}
-      <div className="lg:px-32 md:px-20 p-12">
+      <div className="lg:px-32 md:px-20 p-12 ">
         <div className="text-3xl font-extrabold">
           Beragam <span className="text-[#00ADC6]">Kategori</span>,
         </div>
