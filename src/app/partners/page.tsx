@@ -10,7 +10,28 @@ const Page = () => {
     const [search, setSearch] = useState<string>("");
     const [page, setPage] = useState("COURSE");
     const { partners, fetchPartners } = usePartnerStore();
-    const groupedPartners = chunkArray(partners, 5);
+    const [groupedPartners, setgroupedPartners] = useState([]);
+
+    const updateChunkSize = () => {
+        const isSmallScreen = window.matchMedia("(max-width: 640px)").matches;
+        const isLargeScreen = window.matchMedia("(min-width: 1024px)").matches;
+
+        let chunkSize;
+        if (isSmallScreen) {
+            chunkSize = 2;
+        } else if (isLargeScreen) {
+            chunkSize = 5;
+        } else {
+            chunkSize = 3;
+        }
+        setgroupedPartners(chunkArray(partners, chunkSize));
+    };
+
+    useEffect(() => {
+        updateChunkSize();
+        window.addEventListener("resize", updateChunkSize);
+        return () => window.removeEventListener("resize", updateChunkSize);
+    }, [partners]);
 
     useEffect(() => {
         fetchPartners({
@@ -77,12 +98,12 @@ const Page = () => {
                     </button>
                 </div>
 
-                <div className=" bg-gray-100 mb-20 rounded-lg w-3/5 lg:w-3/4">
+                <div className=" bg-gray-100 mb-20 rounded-lg w-3/5 lg:w-3/4 sm:p-4">
                     <Carousel>
                         {groupedPartners.map((group, index) => (
                             <div
                                 key={index}
-                                className="flex justify-center rounded-lg gap-5 p-10 "
+                                className="flex justify-center rounded-lg gap-5 p-10"
                             >
                                 {group.map((partner) => (
                                     <PartnerCard
