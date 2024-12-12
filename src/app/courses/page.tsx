@@ -150,6 +150,7 @@ const Page = () => {
                 }
                 title={product.courseName}
                 normal_price={product.basicPrice}
+                final_price={product.finalPrice}
                 discount={
                   product.discount &&
                   (product.discountType === "PERCENTAGE"
