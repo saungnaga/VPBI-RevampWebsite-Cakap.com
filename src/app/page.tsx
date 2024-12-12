@@ -51,14 +51,14 @@ export default function Home() {
         Kursus Online Bersertifikat dan Kelas Keterampilan Kerja - Cakap
       </h1>
       {/* -----banner----- */}
-      <div className="px-20 py-4 md:px-20 p-12 bg-white text-black banner bg-white">
+      <div className="px-0.5 py-0.5 sm:px-20 sm:py-4 bg-white text-black banner bg-white">
                 <div className="flex flex-row justify-between items-center tracking-tighter">
-                    <div className="text-7xl font-semibold">
+                    <div className="text-xs lg:text-6xl sm:text-2xl font-semibold hidden sm:block">
                         Raih <span className="text-lime-500">TUJUAN</span>
                         <p> dan <span className="text-cyan-500">SASARAN</span></p> 
                         <p>Anda di masa mendatang</p>
                         <Link href="CourseList">
-                          <Badge bgcolor="blue">Pelajari lebih lanjut ↗</Badge>
+                          <Badge bgcolor="blue"><span className="p-2 hover:animate-pulse">Pelajari lebih lanjut ↗</span></Badge>
                         </Link>
                     </div>
                     <Carousel>
@@ -68,7 +68,7 @@ export default function Home() {
                                 key={index}
                                 src={banners.urlBanner} 
                                 alt={banners.altTag}
-                                className="object-fit w-screen h-[30vw] rounded-3xl "
+                                className="object-fit w-screen h-100vw sm:h-[30vw] rounded-3xl "
                             />
                         </Link>
                         ))}
@@ -88,7 +88,7 @@ export default function Home() {
           <div>
               <Carousel>
               {groupProduct.map((group, index) => (
-                <div key={index} className="flex gap-4 justify-center p-24">
+                <div key={index} className="flex gap-4 justify-center p-24 ">
                   {group.map((product) => (
                     <ProductCardSkeleton courseId={product.courseId}
                     courseName= {product.courseName}
@@ -114,42 +114,42 @@ export default function Home() {
         </div>
         <div className="text-3xl font-extrabold">Tak Terbatas Kesempatan</div>
       </div>
-      <div className="bg-[#D9D9D9] mx-96 mb-8 pb-24 pt-16 pr-20 rounded-3xl flex flex-col">
-        <div className="flex justify-end">
-          {products.slice(0, 5).map((product, index) => (
+      <div className="bg-[#D9D9D9] mx-4 sm:mx-20 xl:mx-96 my-4 rounded-3xl flex flex-col">
+        <div className="flex justify-end px-6 ">
+          {products.slice(0, 4).map((product, index) => (
               <Link href="Kategori">
-                <div key={index} className="m-2">
-                  <Badge bgcolor="white">{product.categoriesName} ↗</Badge>
+                <div key={index} className="m-1 max-w-screen sm:m-2">
+                  <Badge bgcolor="white"><span className="p-1 sm:p-2">{product.categoriesName}</span></Badge>
                 </div>
               </Link>
           ))}
         </div>
-        <div className="flex flex justify-end">
-          {products.slice(6, 11).map((product, index) => (
+        <div className="sm:flex justify-end hidden px-6">
+          {products.slice(5, 10).map((product, index) => (
               <Link href="Kategori">
                 <div key={index} className="m-2">
-                  <Badge bgcolor="white">{product.categoriesName} ↗</Badge>
+                  <Badge bgcolor="white"><span className="p-2">{product.categoriesName} ↗</span></Badge>
                 </div>
               </Link>
           ))}
         </div>
-        <div className="flex flex justify-end">
-          {products.slice(12, 13).map((product, index) => (
+        <div className="sm:flex justify-end hidden px-6">
+          {products.slice(11, 13).map((product, index) => (
               <Link href="Kategori">
                 <div key={index} className="m-2">
-                  <Badge bgcolor="white">{product.categoriesName} ↗</Badge>
+                  <Badge bgcolor="white"><span className="p-2">{product.categoriesName} ↗</span></Badge>
                 </div>
               </Link>
               
           ))}
         </div>
-        <div className="text-4xl w-3/4 px-20">
+        <div className="text-xl px-6 py-2 sm:text-3xl sm:w-2/4">
           Eksplorasilah kategori kami untuk memperluas keterampilan Anda
         </div>
-        <div className="text-sm w-2/4 px-20 py-4 flex flex-col">
-            Punya Kode Belajar? Masukkan
+        <div className="text-xs px-6 sm:flex flex-col text-sm sm:w-2/4">
+            Punya Kode Belajar?
             <input
-            className="py-2 w-3/4 rounded-2xl"
+            className="py-2 my-2 w-3/4 rounded-2xl"
             id="1"
             name="Masukkan kode belajar Anda"
             value=""
@@ -159,7 +159,7 @@ export default function Home() {
         </div>
       </div>
       {/* -------Kursus Terlaris------ */}
-      <div className="lg:px-32 md:px-20 p-12 bg-[#E1EDF7]">
+      <div className="lg:px-32 md:px-20 sm:px-20 p-12 bg-[#E1EDF7]">
         <div className="text-center">
           <div className="text-xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
             Jangan Lewatkan, Ini yang Paling Dicari!
@@ -170,7 +170,7 @@ export default function Home() {
         </div>
         <Carousel>
               {groupBestSeller.map((group, index) => (
-                <div key={index} className="flex gap-4 justify-center p-24">
+                <div key={index} className="flex gap-4 justify-center p-24 sm:py-4">
                   {group.map((best_sellers) => (
                     <ProductCardBestSeller courseId={best_sellers.courseId}
                     courseName= {best_sellers.courseName}

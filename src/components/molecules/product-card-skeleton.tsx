@@ -26,16 +26,16 @@ export const ProductCardSkeleton: React.FC<ProductCardProps> = ({
 
 return (
     <Link href={nextAction.deeplink}>
-    <div className="max-w-64 h-full bg-black mx-1 text-black rounded-3xl 
+    <div className=" lg:max-w-64 h-full bg-black mx-1 text-black rounded-3xl 
                     transition ease-in-out delay-150 hover:-translate-y-1 
                     hover:scale-110 hover:opacity-90 duration-300"
          key={courseId}>
     <img  src={icon.thumbnail} 
           alt={courseName}
-          className="object-cover overflow-hidden w-full h-[10rem] rounded-t-3xl"/>
+          className="object-cover overflow-hidden h-[10rem] rounded-t-3xl"/>
     {/* title/header */}
     <div className="bg-white rounded-b-3xl h-[12rem] flex flex-col justify-between pt-2">
-      <div className="text-lg font-bold mx-2">
+      <div className="text-xs lg:text-xl font-bold mx-2">
             <div className="overflow-hidden text-ellipsis whitespace-nowrap max-h-14">
                 {courseName}
             </div>
@@ -52,15 +52,15 @@ return (
             <div>
                 {formatPrice(price.new)}
             </div>
-            <div className="bg-[#FF6464] text-white px-1 rounded-xl border-[1px]">
+            <div className="bg-[#FF6464] text-white px-1 rounded-xl border-[1px] text-xs">
                 {promoText}
             </div>
-            <div className="text-black line-through">
+            <div className="text-black line-through text-xs sm:text-base">
                 {formatPrice(price.old)}   
             </div>
         </div>
          ) : (
-        <div className="mx-2 mb-6 text-2xl font-semibold">
+        <div className="mx-2 mb-6 text-xs sm:text-2xl font-semibold">
                 Rp.{formatPrice(basicPrice)},-
         </div>)
             }
