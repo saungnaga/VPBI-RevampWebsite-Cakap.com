@@ -13,7 +13,9 @@ import { useEffect } from "react";
 import { useBannerStore } from "@/stores/useBannerStore";
 import Link from "next/link";
 import { ProductCardSkeleton } from "@/components/molecules/product-card-skeleton";
+import { ProductCardBestSeller } from "@/components/molecules/product-cardBestSeller";
 import { useProductHighlightStore } from "@/stores/useProductHighlightStore";
+import { useProductStore } from "@/stores/useProductStore";
 import JobList from "@/components/molecules/job-list";
 import CourseList from "@/components/molecules/prakerja-list";
 import { Carousel } from "@/components/molecules/carousel";
@@ -27,13 +29,21 @@ export default function Home() {
   fetchBanners();
   }, [fetchBanners]);
 
+  const { best_sellers, fetchBestSellers } = useProductStore();
+  
+  useEffect(() => {
+    fetchBestSellers({limit:20, page:1});
+  }, [fetchBestSellers]);
+
+
   const { products, fetchProduct } = useProductHighlightStore();
   
   useEffect(() => {
     fetchProduct();
   }, [fetchProduct]);
 
-  const groupProduct = chunkArray(products, 5)
+  const groupProduct = chunkArray(products, 3)
+  const groupBestSeller = chunkArray(best_sellers, 3)
 
   return (
     <>
@@ -104,7 +114,7 @@ export default function Home() {
         </div>
         <div className="text-3xl font-extrabold">Tak Terbatas Kesempatan</div>
       </div>
-      <div className="bg-[#D9D9D9] mx-96 pb-24 pt-16 pr-20 rounded-3xl flex flex-col">
+      <div className="bg-[#D9D9D9] mx-96 mb-8 pb-24 pt-16 pr-20 rounded-3xl flex flex-col">
         <div className="flex justify-end">
           {products.slice(0, 5).map((product, index) => (
               <Link href="Kategori">
@@ -136,18 +146,17 @@ export default function Home() {
         <div className="text-4xl w-3/4 px-20">
           Eksplorasilah kategori kami untuk memperluas keterampilan Anda
         </div>
-        <div className="text-sm w-2/4 px-20 flex flex-col">
+        <div className="text-sm w-2/4 px-20 py-4 flex flex-col">
             Punya Kode Belajar? Masukkan
             <input
             className="py-2 w-3/4 rounded-2xl"
             id="1"
             name="Masukkan kode belajar Anda"
             value=""
-            onChange="d"
+            onChange=""
             placeholder="Masukkan kode belajar Anda"
         />
         </div>
-          
       </div>
       {/* -------Kursus Terlaris------ */}
       <div className="lg:px-32 md:px-20 p-12 bg-[#E1EDF7]">
@@ -159,6 +168,24 @@ export default function Home() {
             Daftar sekarang untuk bergabung dengan kursus terbaik kami.
           </div>
         </div>
+        <Carousel>
+              {groupBestSeller.map((group, index) => (
+                <div key={index} className="flex gap-4 justify-center p-24">
+                  {group.map((best_sellers) => (
+                    <ProductCardBestSeller courseId={best_sellers.courseId}
+                    courseName= {best_sellers.courseName}
+                    partner={best_sellers.partner}
+                    icon={best_sellers.icon}
+                    reviews={best_sellers.reviews}
+                    basicPrice={best_sellers.basicPrice}
+                    price={best_sellers.price}
+                    discount={best_sellers.discount}
+                    promoText={best_sellers.promoText}
+                    nextAction={best_sellers.nextAction}/>
+                  ))}
+                </div>
+              ))}
+              </Carousel>
       </div>
       {/* -------Bahasa Asing-------- */}
       <div className="lg:px-32 md:px-20 p-12">

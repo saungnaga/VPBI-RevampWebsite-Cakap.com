@@ -1,29 +1,78 @@
 import React from "react";
+import { ProductCardProps } from "./types/ProductCardProps.types";
+import Link from "next/link";
+import { useProductStore } from "@/stores/useProductStore";
+import { useEffect } from "react";
 
-export const ProductCardBestSeller = (onClick: ()=> void) => {
-  return (
-    <>
-    <div  className="w-64 h-full bg-black mx-1 text-black rounded-3xl"
-          onClick={onClick}>
-      <div className="overflow-hidden w-full h-[10rem] rounded-t-3xl">
-        <img  src="https://media.istockphoto.com/id/453281365/id/foto/huruf-alfabet-api-e.jpg?s=612x612&w=is&k=20&c=ds2MDJFCVsFZQPnFshHjb4_jiIwsOe2NnzmPRtkibVQ=" 
-              alt="productName"/>
+const formatPrice = (price: string | number) => {
+    const priceString = typeof price === 'string' ? price : price.toString();
+    const number = parseFloat(priceString.replace(/[^\d.-]/g, ''));
+    if (isNaN(number)) return priceString;
+    return new Intl.NumberFormat('de-DE').format(number);
+  };
+
+export const ProductCardBestSeller: React.FC<ProductCardProps> = ({
+    courseName,
+    courseId,
+    price,
+    basicPrice,
+    discount,
+    promoText,
+    partner,
+    reviews,
+    icon,
+    nextAction
+}) => {
+
+return (
+    <Link href={nextAction.deeplink}>
+    <div className="max-w-64 h-full bg-black mx-1 text-black rounded-3xl 
+                    transition ease-in-out delay-150 hover:-translate-y-1 
+                    hover:scale-110 hover:opacity-90 duration-300"
+         key={courseId}>
+    <img  src={icon.thumbnail} 
+          alt={courseName}
+          className="object-cover overflow-hidden w-full h-[10rem] rounded-t-3xl"/>
+    {/* title/header */}
+    <div className="bg-white rounded-b-3xl h-[12rem] flex flex-col justify-between pt-2">
+      <div className="text-lg font-bold mx-2">
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap max-h-14">
+                {courseName}
+            </div>
+            <div className="text-xs text-gray-500 font-thin">
+                By <span className="text-black font-bold">{partner.partnerName}</span>
+            </div>
+            <div className="flex items-center space-x-2 ">
+                <span className="text-yellow-400">⭐ {reviews?.rating}</span>
+                <span className="text-gray-500 text-sm">&#40; {reviews?.total} &#41;</span>
+            </div>
       </div>
-        <div className="bg-white rounded-b-3xl h-[12rem] pt-2 flex flex-col justify-between">
-          <div className="text-xl font-bold mx-2 overflow-hidden">
-            ini titlenya
-              <div className="text-xs text-gray-500">
-                By <span className="text-black">Siapa</span>
-              </div>
-              <div className="text-xs mt-2">
-                Bintangnya
-              </div>
-          </div>
-          <div className="mx-2 pb-4 text-2xl font-semibold">
-            Rp.500.000,-
-          </div>
+      {/* pricing */}
+      <div className="">
+        {discount ? (<div className="mx-2 text-md text-[#FF6464] font-semibold flex flex-row justify-between ">
+            <div>
+                {formatPrice(price.new)}
+            </div>
+            <div className="bg-[#FF6464] text-white px-1 rounded-xl border-[1px]">
+                {promoText}
+            </div>
+            <div className="text-black line-through">
+                {formatPrice(price.old)}   
+            </div>
         </div>
+         ) : (
+        <div className="mx-2 mb-6 text-2xl font-semibold">
+                Rp.{formatPrice(basicPrice)},-
+        </div>)
+            }
+        {discount && (
+        <div className="mx-2 my-2 py-1 border-[1px] border-black rounded-2xl bg-gray-300 w-1/4 text-center text-xs font-bold">
+          Diskon
+        </div>
+      )}
+      </div>
     </div>
-    </>
-  )
+</div>
+</Link>
+    )
 };

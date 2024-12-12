@@ -2,11 +2,9 @@
 
   import React from "react";
   import { BadgePropTypes } from "./types/badge.types";
-  import { useRouter } from "next/navigation";
 
   export const Badge: React.FC<BadgePropTypes> = ({
     children,
-    onClick, 
     bgcolor
   }) => {
 
@@ -20,9 +18,11 @@
     const style = `flex gap-2 px-2 py-1 text-base font-semibold rounded-3xl ${bgcolors[bgcolor]}`;
 
     return (
-      <button onClick={onClick} className={style}>
-        {children}  
-      </button>
+      <div>
+        <button className={style}>
+          {children}  
+        </button>
+      </div>
     );
   };
 

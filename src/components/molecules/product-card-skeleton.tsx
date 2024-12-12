@@ -24,13 +24,6 @@ export const ProductCardSkeleton: React.FC<ProductCardProps> = ({
     nextAction
 }) => {
 
-    const { products, fetchProduct } = useProductHighlightStore();
-  
-    useEffect(() => {
-      fetchProduct();
-    }, [fetchProduct]);
-
-
 return (
     <Link href={nextAction.deeplink}>
     <div className="max-w-64 h-full bg-black mx-1 text-black rounded-3xl 
@@ -43,9 +36,6 @@ return (
     {/* title/header */}
     <div className="bg-white rounded-b-3xl h-[12rem] flex flex-col justify-between pt-2">
       <div className="text-lg font-bold mx-2">
-        <div className="text-xs text-gray-500 font-thin">
-                tanggal
-            </div>
             <div className="overflow-hidden text-ellipsis whitespace-nowrap max-h-14">
                 {courseName}
             </div>
