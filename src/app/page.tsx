@@ -136,7 +136,7 @@ export default function Home() {
         <div className="text-3xl font-extrabold">Tak Terbatas Kesempatan</div>
       </div>
       <div className="bg-[#D9D9D9] mx-4 sm:mx-20 xl:mx-96 my-4 rounded-3xl flex flex-col">
-        <div className="flex justify-end px-6 sm: hover:animate-bounce">
+        <div className="flex justify-end px-6">
           {products.slice(0, 4).map((product, index) => (
               <Link href="Kategori">
                 <div key={index} className="m-1 max-w-screen sm:m-2">
