@@ -52,7 +52,7 @@ const JobList: React.FC = () => {
   }
 
   return (
-    <div className="flex gap-2 items-center lg:w-1/2">
+    <div className="flex gap-2 items-center justify-end lg:w-1/2">
       <div ref={containerRef} className="flex flex-col gap-3 md:h-[520px] h-96 overflow-hidden rounded-xl border-2 md:px-10 p-5 text-sm md:text-base bg-white">
         {jobs.map((job: Job) => (
           <JobCard
@@ -66,7 +66,7 @@ const JobList: React.FC = () => {
           />
         ))}
       </div>
-      <div>
+      <div className="absolute p-3 opacity-50">
         <CircleButton className="px-3 mb-2" variant="black" onClick={handleScrollUp}>↑</CircleButton>
         <CircleButton className="px-3" variant="black" onClick={handleScrollDown}>↓</CircleButton>
       </div>

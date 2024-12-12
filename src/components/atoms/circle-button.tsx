@@ -5,6 +5,7 @@ export const CircleButton: React.FC<ICircleButtonPropTypes> = ({
   variant,
   className = "",
   onClick,
+  
 }) => {
   const defaultStyle = "p-1 rounded-full flex justify-center items-center";
   const variants = {
